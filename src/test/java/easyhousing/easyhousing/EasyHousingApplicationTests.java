@@ -1,4 +1,4 @@
-package com.easyhousing.easyhousing;
+package easyhousing.easyhousing;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
