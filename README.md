@@ -6,8 +6,8 @@ EasyHousing é uma aplicação web desenvolvida como parte do meu Trabalho de Co
 Tecnologias Utilizadas:
 
     Back-End: Java Spring Boot (Java 17)
-    Front-End: React.js
-    Banco de Dados: PostgreSQL
+    Front-End: vue.js.js
+    Banco de Dados: MySql
 
 Principais Funcionalidades:
 
@@ -17,7 +17,7 @@ Principais Funcionalidades:
     Design Responsivo: Otimizado para dispositivos desktop e móveis, garantindo uma experiência de usuário contínua.
     Integração com APIs: Integração com serviços de terceiros para funcionalidades estendidas, como geolocalização
 Objetivo:
-O principal objetivo deste projeto é entregar uma aplicação web totalmente funcional e amigável que atenda às principais necessidades de uma imobiliária moderna. Utilizando tecnologias modernas como Spring Boot e React, o EasyHousing é construído para ser escalável, de fácil manutenção e fácil de usar.
+O principal objetivo deste projeto é entregar uma aplicação web totalmente funcional e amigável que atenda às principais necessidades de uma imobiliária moderna. Utilizando tecnologias modernas como Spring Boot e vue.js, o EasyHousing é construído para ser escalável, de fácil manutenção e fácil de usar.
 
 Como Executar:
 
@@ -28,7 +28,7 @@ Como Executar:
 git clone https://github.com/belinDEV/EasyHousing.git
 
 
-Navegue até o diretório do front-end e inicie a aplicação React:
+Navegue até o diretório do front-end e inicie a aplicação vue.js:
 
 bash
 
