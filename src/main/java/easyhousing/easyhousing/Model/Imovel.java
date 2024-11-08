@@ -17,43 +17,25 @@ public class Imovel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Setter
-    private Integer qtdQuarto;
-    @Setter
-    private Boolean garagem;
-    @Setter
-    private Integer qtdBanheiro;
-    @Setter
-    private String status;
-    @Setter
-    private String cep;
-    @Setter
-    private String tipo;
-    @Setter
-    private Boolean financiamento;
-    @Setter
-    private String descricao;
-    @Setter
-    private String contrato;
-    @Setter
-    private String urn;
-
-    @Column(precision = 10, scale = 8)
-    @Setter
-    private BigDecimal latitude;
-
-    @Column(precision = 10, scale = 8)
-    @Setter
-    private BigDecimal longitude;
+    @Setter private Integer qtdQuarto;
+    @Setter private Boolean garagem;
+    @Setter private Integer qtdBanheiro;
+    @Setter private String status;
+    @Setter private String cep;
+    @Setter private String tipo;
+    @Setter private Boolean financiamento;
+    @Setter private String descricao;
+    @Setter private String contrato;
+    @Setter private String urn;
+    @Column(precision = 10, scale = 8) @Setter private BigDecimal latitude;
+    @Column(precision = 10, scale = 8) @Setter private BigDecimal longitude;
 
     @ManyToOne
     @JoinColumn(name = "corretor_id")
     @Setter
-    private Corretor corretor;
+    private Corretor corretor;  // Corrigido para ser do tipo Corretor, não Long
 
-
-
-    public Imovel(ImovelRequest data){
+    public Imovel(ImovelRequest data, Corretor corretor) {
         this.qtdQuarto = data.getQtdQuarto();
         this.garagem = data.getGaragem();
         this.qtdBanheiro = data.getQtdBanheiro();
@@ -66,8 +48,6 @@ public class Imovel {
         this.urn = data.getUrn();
         this.latitude = data.getLatitude();
         this.longitude = data.getLongitude();
-        this.corretor = data.getCorretor();
+        this.corretor = corretor;
     }
-
-
 }
