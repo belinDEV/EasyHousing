@@ -29,12 +29,14 @@ public class Imovel {
     @Setter private String urn;
     @Column(precision = 10, scale = 8) @Setter private BigDecimal latitude;
     @Column(precision = 10, scale = 8) @Setter private BigDecimal longitude;
-
     @ManyToOne
     @JoinColumn(name = "corretor_id")
     @Setter
     private Corretor corretor;  // Corrigido para ser do tipo Corretor, não Long
-
+    @ManyToOne
+    @JoinColumn(name = "image_id")
+    @Setter
+    private Image image;
     public Imovel(ImovelRequest data, Corretor corretor) {
         this.qtdQuarto = data.getQtdQuarto();
         this.garagem = data.getGaragem();

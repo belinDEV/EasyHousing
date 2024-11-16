@@ -42,6 +42,7 @@ public class ImovelController {
                 .collect(Collectors.toList());
     }
 
+    // Buscar a lista de imagens associadas ao imovel
     @GetMapping("/{id}")
     public ResponseEntity<ImovelResponse> getById(@PathVariable Long id) {
         Optional<Imovel> imovelOptional = imovelRepository.findById(id);
@@ -66,12 +67,18 @@ public class ImovelController {
         Imovel imovel = new Imovel(data, corretor);
         Imovel savedImovel = imovelRepository.save(imovel);
 
-        List<ImageResponseDTO> imageResponseDTOs = ImageRepository.findByImovelId(savedImovel.getId()).stream()
+        List<Image> imagens = ImageRepository.findByImovelId(savedImovel.getId());
+        List<ImageResponseDTO> imageResponseDTOs = Optional.ofNullable(imagens)
+                .orElse(List.of()) // Garante uma lista vazia se imagens for null
+                .stream()
                 .map(image -> new ImageResponseDTO(image.getUrl()))
-                .collect(Collectors.toList());
+                .toList();
 
         ImovelResponse response = new ImovelResponse(savedImovel, imageResponseDTOs);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+
+
+
 }
 
