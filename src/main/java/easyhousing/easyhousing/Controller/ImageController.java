@@ -9,6 +9,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,7 +22,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/image")
+@RequestMapping("/api/image")
+@Controller
+
 public class ImageController {
 
     @Autowired
@@ -40,11 +43,13 @@ public class ImageController {
             uploadDir.mkdirs();
         }
     }
-    @PostMapping("/save")
-    public ResponseEntity<List<ImageRequestDTO>> save(@RequestParam("file") MultipartFile file, @RequestParam("imovelId") Long imovelId) {
+    @PostMapping("/salvar")
+    public ResponseEntity<List<ImageRequestDTO>> save(
+            @RequestParam("file") MultipartFile file,
+            @RequestParam("imovelId") Long imovelId) {
         try {
             Imovel imovel = imovelRepository.findById(imovelId)
-                    .orElseThrow(() -> new EntityNotFoundException("Imovel não encontrado para o ID: " + imovelId));
+                    .orElseThrow(() -> new EntityNotFoundException("Imóvel não encontrado para o ID: " + imovelId));
 
             // Salvar o arquivo localmente
             String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
@@ -53,10 +58,16 @@ public class ImageController {
 
             // Salvar a URL da imagem no banco de dados
             Image image = new Image();
-            image.setUrl(filePath.toString());
+            String relativePath = "/uploads/" + fileName;
+            image.setUrl(relativePath);
             image.setImovel(imovel);
             image = imageRepository.save(image);
 
+            // Atualizar o campo image do imóvel
+            imovel.setImage(image);
+            imovelRepository.save(imovel);
+
+            // Retornar a resposta
             ImageRequestDTO dto = new ImageRequestDTO();
             dto.setUrl(image.getUrl());
             dto.setImovelId(image.getImovel().getId());
@@ -66,5 +77,6 @@ public class ImageController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 }
 

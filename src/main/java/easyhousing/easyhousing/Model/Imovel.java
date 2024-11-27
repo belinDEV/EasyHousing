@@ -3,7 +3,9 @@ package easyhousing.easyhousing.Model;
 import easyhousing.easyhousing.DTO.ImovelRequest;
 import jakarta.persistence.*;
 import lombok.*;
+
 import java.math.BigDecimal;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -17,26 +19,62 @@ public class Imovel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Setter private Integer qtdQuarto;
-    @Setter private Boolean garagem;
-    @Setter private Integer qtdBanheiro;
-    @Setter private String status;
-    @Setter private String cep;
-    @Setter private String tipo;
-    @Setter private Boolean financiamento;
-    @Setter private String descricao;
-    @Setter private String contrato;
-    @Setter private String urn;
-    @Column(precision = 10, scale = 8) @Setter private BigDecimal latitude;
-    @Column(precision = 10, scale = 8) @Setter private BigDecimal longitude;
+    @Setter
+    private Integer qtdQuarto;
+
+    @Setter
+    private Boolean garagem;
+
+    @Setter
+    private Integer qtdBanheiro;
+
+    @Setter
+    private String status;
+
+    @Setter
+    private String cep;
+
+    @Setter
+    private String tipo;
+
+    @Setter
+    private Boolean financiamento;
+
+    @Setter
+    private String descricao;
+
+    @Setter
+    private String contrato;
+
+    @Setter
+    private String urn;
+
+    @Column(precision = 10, scale = 8)
+    @Setter
+    private BigDecimal latitude;
+
+    @Column(precision = 10, scale = 8)
+    @Setter
+    private BigDecimal longitude;
+
     @ManyToOne
     @JoinColumn(name = "corretor_id")
     @Setter
-    private Corretor corretor;  // Corrigido para ser do tipo Corretor, não Long
-    @ManyToOne
-    @JoinColumn(name = "image_id")
-    @Setter
-    private Image image;
+    private Corretor corretor;
+
+    @OneToMany(mappedBy = "imovel", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Image> images;
+
+    
+    public List<Image> getImages() {
+        return images;
+    }
+ 
+    public void setImages(List<Image> images) {
+        this.images = images;
+    }
+
+     
     public Imovel(ImovelRequest data, Corretor corretor) {
         this.qtdQuarto = data.getQtdQuarto();
         this.garagem = data.getGaragem();
@@ -51,5 +89,8 @@ public class Imovel {
         this.latitude = data.getLatitude();
         this.longitude = data.getLongitude();
         this.corretor = corretor;
+    }
+
+    public void setImage(Image image) {
     }
 }

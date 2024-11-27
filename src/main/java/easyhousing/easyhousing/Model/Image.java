@@ -18,14 +18,16 @@ import lombok.Setter;
 @Entity(name = "Image")
 public class Image {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull(message = "O link da imagem não pode ser nulo")
+    @Column(nullable = false)
     private String url;
 
     @ManyToOne
     @JoinColumn(name = "imovel_id", nullable = false)
     private Imovel imovel;
+
 }
