@@ -1,3 +1,4 @@
+<PROJETO ABANDONADO>
 EasyHousing - Aplicação Web para Gestão Imobiliária
 
 Visão Geral do Projeto:
